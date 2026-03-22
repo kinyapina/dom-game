@@ -6,8 +6,19 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',  // или app.bundle.js — не принципиально
-    clean: true  // добавим для очистки dist перед сборкой
+    filename: 'main.js',
+    clean: true,
+    publicPath: '/'
+  },
+  // Добавляем настройки dev server
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'dist'),
+    },
+    port: 8080,
+    open: true,
+    hot: true,
+    historyApiFallback: true,
   },
   module: {
     rules: [
@@ -38,7 +49,7 @@ module.exports = {
   plugins: [
     new HtmlWebPackPlugin({
       template: './src/index.html',
-      filename: 'index.html',  // исправь на index.html, не main.html
+      filename: 'index.html',
     }),
     new MiniCSSExtractPlugin({
       filename: '[name].css',
