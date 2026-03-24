@@ -1,4 +1,4 @@
-export class default Goblin {
+export default class Goblin {
   constructor() {
     this.element = null;
     this.currentCell = null;

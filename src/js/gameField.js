@@ -18,7 +18,7 @@ export default class GameField {
       cell.dataset.index = i;
 
       // Добавляем обработчик клика
-      cell.addEventListener('click' (event) => {
+      cell.addEventListener('click', (event) => {
         if (this.onCellClick) {
           this.onCellClick(cell, i);
         }
@@ -34,11 +34,16 @@ export default class GameField {
     
   // Получить ячейку по индексу
   getCell(index) {
-    return this.cells;
+    return this.cells[index];
   }
 
   // Получить все ячейки
   getAllCells() {
+    return this.cells;
+  }
+
+  // Очистить поле от гоблина
+  clearGoblin() {
     this.cells.forEach(cell => {
       const goblin = cell.querySelector('.goblin');
       if (goblin) {

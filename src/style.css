@@ -9,6 +9,7 @@ body {
 }
 
 .field {
+  margin-top: 20px;
   display: grid;
   grid-template-columns: repeat(4, 120px);
   gap: 15px;
@@ -36,5 +37,21 @@ body {
   background-position: center center;
   background-repeat: no-repeat;
   background-size: contain;
+  animation: bounce 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+@keyframes bounce {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  80% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
 }
   
