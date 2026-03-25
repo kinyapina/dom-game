@@ -5,7 +5,7 @@
   "homepage": "https://github.com/kinyapina/dom-game.git",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack-dev-server --mode development --open",
+    "start": "webpack serve --mode development --open",
     "test": "jest"
   },
   "keywords": [],

@@ -2,15 +2,18 @@ const path = require('path');
 const HtmlWebPackPlugin = require('html-webpack-plugin');
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin');
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'main.js',
     clean: true,
-    publicPath: '/'
+    // Для GitHub Pages важно: если репозиторий называется не username.github.io
+    // то нужно указать базовый путь
+    publicPath: isProduction ? '/[dom-game]/' : '/',
   },
-  // Добавляем настройки dev server
   devServer: {
     static: {
       directory: path.join(__dirname, 'dist'),
