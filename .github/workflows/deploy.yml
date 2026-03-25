@@ -3,28 +3,56 @@ name: Build and Deploy
 on:
   push:
     branches: [ main, master ]
+  # Добавляем возможность ручного запуска
+  workflow_dispatch:
+
+# Добавляем права доступа
+permissions:
+  contents: write
+  pages: write
+  id-token: write
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    # Добавляем права для job
+    permissions:
+      contents: write
     
     steps:
     - name: Checkout
       uses: actions/checkout@v3
+      with:
+        # Важно: забираем всю историю
+        fetch-depth: 0
     
     - name: Setup Node.js
       uses: actions/setup-node@v3
       with:
         node-version: '18'
+        cache: 'npm'
     
     - name: Install dependencies
-      run: npm install
+      run: |
+        npm ci
+        # Если npm ci не работает, используй npm install
+        # npm install
     
     - name: Build
       run: npm run build
+      env:
+        NODE_ENV: production
     
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
+        # Используем GITHUB_TOKEN вместо персонального токена
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_dir: ./dist
+        publish_branch: gh-pages
+        # Добавляем информацию о коммите
+        commit_message: 'Deploy: ${{ github.event.head_commit.message }}'
+        user_name: 'github-actions[bot]'
+        user_email: 'github-actions[bot]@users.noreply.github.com'
+        # Важно: force оркестр, чтобы перезаписывать старую версию
+        force_orphan: true
