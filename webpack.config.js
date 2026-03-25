@@ -12,7 +12,7 @@ module.exports = {
     clean: true,
     // Для GitHub Pages важно: если репозиторий называется не username.github.io
     // то нужно указать базовый путь
-    publicPath: isProduction ? '/[dom-game]/' : '/',
+    publicPath: './',
   },
   devServer: {
     static: {
